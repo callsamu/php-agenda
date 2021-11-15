@@ -6,7 +6,7 @@ use Samu\TodoList\Helper\EntityManagerCreator;
 use Samu\TodoList\Controllers\ControllerInterface;
 use Samu\TodoList\Entity\Task;
 
-class TaskListController implements ControllerInterface
+class TaskList implements ControllerInterface
 {
     private $entityManager;
 

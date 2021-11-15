@@ -7,7 +7,7 @@ use Exception;
 class FrontController implements ControllerInterface
 {
     private $table = [
-        '/tasks' => TaskListController::class
+        '/tasks' => TaskList::class
     ];
 
     public function processRequest(string $url) {
