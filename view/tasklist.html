@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title><?= $title; ?></title>
+    </head>
+    <body>
+        <h1> Task Viewer </h1>
+        <?php if (empty($tasklist)) { ?>
+          <span> Your task list is empty. </span>
+        <?php } else { ?>
+          <ol>
+              <?php foreach ($tasklist as $task) { ?>
+                <li> 
+                    <?= $task->getName(); ?> 
+                </li>
+              <?php } ?>
+          </ol>
+        <?php } ?>
+    </body>
+</html>

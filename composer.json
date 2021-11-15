@@ -1,0 +1,21 @@
+{
+    "name": "samu/todo-list",
+    "description": "Simple TODO list web app, implementing a rudimentary MVC.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "callsamu",
+            "email": "samuelbree@gmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.10",
+        "symfony/cache": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Samu\\TodoList\\":"src/"
+        }
+    }
+}
