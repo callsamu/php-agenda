@@ -2,7 +2,13 @@
 
 namespace Samu\TodoList\Controllers;
 
-class TaskCreator implements ControllerInterface
+class TaskCreator
+extends ViewController
+implements ControllerInterface
 {
-    // TODO implement processRequest
+    public function processRequest(string $uri) : void {
+        echo $this->renderView('form', [
+            'title' => 'New Task' 
+        ]);
+    }
 }
