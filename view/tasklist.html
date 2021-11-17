@@ -1,19 +1,27 @@
 <html>
     <head>
         <title><?= $title; ?></title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     </head>
     <body>
-        <h1> Task Viewer </h1>
-        <?php if (empty($tasklist)) { ?>
+        <h1> <?= $title; ?> </h1>
+        <a href="/new-task"><button>Add a new task</button></a>
+        <hr>
+
+        <?php if (empty($taskList)) { ?>
           <span> Your task list is empty. </span>
         <?php } else { ?>
-          <ol>
-              <?php foreach ($tasklist as $task) { ?>
-                <li> 
-                    <?= $task->getName(); ?> 
-                </li>
+          <table>
+              <?php foreach ($taskList as $task) { ?>
+                <tr> 
+                    <th><?= $task->getName(); ?></th>
+                    <th><?= $task->getDate()->format('H:i - d/m/Y'); ?></th>
+                    <th>
+                        <a href="/delete?id=<?= $task->getId(); ?>"><button>X</button></a>
+                    </th>
+                </tr>
               <?php } ?>
-          </ol>
+          </table>
         <?php } ?>
     </body>
 </html>
