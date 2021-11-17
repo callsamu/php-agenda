@@ -25,6 +25,15 @@ class Task
      */
     private DateTime $creationDate;
 
+    public function getId() : int {
+       return $this->id; 
+    }
+
+    public function setId(int $new) {
+        $this->id = $new;
+        return $this;
+    }
+
     public function getName() : string { 
         return $this->name;
     }
