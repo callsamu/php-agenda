@@ -3,22 +3,27 @@
 namespace Samu\TodoList\Controllers;
 
 use Samu\TodoList\Helper\EntityManagerCreator;
-use Samu\TodoList\Controllers\ControllerInterface;
 use Samu\TodoList\Entity\Task;
 
-class TaskList implements ControllerInterface
+class TaskList 
+extends ViewController
+implements ControllerInterface
 {
-    private $entityManager;
+    private $repository;
 
     public function __construct() {
-        $this->entityManager = EntityManagerCreator::create();
+        $this->repository = 
+            EntityManagerCreator::create()
+                ->getRepository(Task::class);
     }
 
-    public function processRequest($uri) {
-        $title = "Tasks";
-        $taskList = $this->entityManager
-                         ->getRepository(Task::class)
+    public function processRequest(string $uri) : void {
+        $taskList = $this->repository
                          ->findAll();
-        require_once __DIR__ . '/../../view/tasklist.html';
+        
+        echo $this->renderView('tasklist', [
+            'title' => 'My Tasks',
+            'taskList' => $taskList
+        ]);
     }
 }
