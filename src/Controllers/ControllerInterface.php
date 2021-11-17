@@ -4,5 +4,5 @@ namespace Samu\TodoList\Controllers;
 
 interface ControllerInterface
 {
-    public function processRequest(string $uri);
+    public function processRequest(string $uri) : void;
 }
