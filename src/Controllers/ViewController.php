@@ -2,17 +2,51 @@
 
 namespace Samu\TodoList\Controllers;
 
-abstract 
 class ViewController
 {
-    function renderView(string $path, array $variables) : string
+    private array $variables;
+    private string $inheritor;
+    private string $view;
+
+    private $viewsDir = __DIR__.'/../../view/';
+
+    public function getInheritorContents() : string
     {
-        extract($variables);
+        return $this->inheritor;
+    }
+
+    public function loadView(string $path, array $variables)
+    {
+        $this->view = $this->viewsDir . $path . '.html';
+        $this->variables = $variables;
+
+        return $this;
+    }
+
+    private function useView() : string 
+    {
+        $view = $this->view;
+        unset($this->view);        
+
+        return $view;
+    }
+
+    public function renderView() : string
+    {
+        extract($this->variables);
+
+        $view = $this->useView();
 
         ob_start();
-        require __DIR__.'/../../view/'.$path.'.html';
+        require $view;
+        $content = ob_get_clean();
 
-        return ob_get_clean();
+        if (isSet($this->view)) {
+            $this->inheritor = $content;
+            return $this->renderView();
+        }
+
+        return $content;
     }
 }
-    
+
