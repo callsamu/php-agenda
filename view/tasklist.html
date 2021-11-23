@@ -1,27 +1,28 @@
-<html>
-    <head>
-        <title><?= $title; ?></title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    </head>
-    <body>
-        <h1> <?= $title; ?> </h1>
-        <a href="/new-task"><button>Add a new task</button></a>
-        <hr>
+<!-- Inherit from "head" --!>
+<?php $this->loadView('head', ['title' => $title]); ?>
 
-        <?php if (empty($taskList)) { ?>
-          <span> Your task list is empty. </span>
-        <?php } else { ?>
-          <table>
-              <?php foreach ($taskList as $task) { ?>
-                <tr> 
-                    <th><?= $task->getName(); ?></th>
-                    <th><?= $task->getDate()->format('H:i - d/m/Y'); ?></th>
-                    <th>
-                        <a href="/delete?id=<?= $task->getId(); ?>"><button>X</button></a>
-                    </th>
-                </tr>
-              <?php } ?>
-          </table>
-        <?php } ?>
-    </body>
-</html>
+<h1> <?= $title; ?> </h1>
+<a href="/new-task"><button>Add a new task</button></a>
+
+<hr>
+
+<?php if (empty($taskList)):  ?>
+  <span> Your task list is empty. </span>
+<?php else:  ?>
+  <table>
+      <?php foreach ($taskList as $task): ?>
+        <tr> 
+            <th><?= $task->getName(); ?></th>
+            <th><?= $task->getDate()->format('H:i - d/m/Y'); ?></th>
+            <th>
+                <a href="/edit?id=<?= $task->getId(); ?>">
+                    <button>Edit</button>
+                </a>
+                <a href="/delete?id=<?= $task->getId(); ?>">
+                    <button>Delete</button>
+                </a>
+            </th>
+        </tr>
+      <?php endforeach; ?>
+  </table>
+<?php endif; ?>
