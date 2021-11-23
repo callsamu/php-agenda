@@ -11,7 +11,7 @@ implements ControllerInterface
 {
     private $entityManager;
 
-    public function __construct() {
+    public function __construct(Pimple\Container $c) {
         $this->entityManager = EntityManagerCreator::create();
     }
 
@@ -19,15 +19,27 @@ implements ControllerInterface
         $name = filter_input(
             INPUT_POST, 
             'description', 
-            FILTER_DEFAULT);
+            FILTER_DEFAULT
+        );
+
+        $id = filter_input(
+            INPUT_GET, 
+            'id', 
+            FILTER_VALIDATE_INT
+        );
 
         $task = new Task();
         $task->setName($name)
-             ->setDate(new DateTime());
+             ->setDate(new DateTime('now'));
         
-        $this->entityManager->persist($task);
+        if ($id !== null && $id !== false) {
+            $task->setId($id);
+            $this->entityManager->merge($task);
+        } else {
+            $this->entityManager->persist($task);
+        }
+        
         $this->entityManager->flush();
-
         header('Location: /tasks');
     }
 }
