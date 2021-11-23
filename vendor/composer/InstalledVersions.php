@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'a56466d733f322a507b791745e5e0e562480c25d',
     'name' => 'samu/todo-list',
   ),
   'versions' => 
@@ -159,6 +159,15 @@ private static $installed = array (
         0 => '1.11.99',
       ),
     ),
+    'pimple/pimple' => 
+    array (
+      'pretty_version' => 'v3.5.0',
+      'version' => '3.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a94b3a4db7fb774b3d78dad2315ddc07629e1bed',
+    ),
     'psr/cache' => 
     array (
       'pretty_version' => '1.0.1',
@@ -209,12 +218,12 @@ private static $installed = array (
     ),
     'samu/todo-list' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'a56466d733f322a507b791745e5e0e562480c25d',
     ),
     'symfony/cache' => 
     array (
