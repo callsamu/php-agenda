@@ -2,13 +2,19 @@
 
 namespace Samu\TodoList\Controllers;
 
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+
 class TaskCreator
 extends ViewController
-implements ControllerInterface
+implements RequestHandlerInterface
 {
-    public function processRequest(string $uri) : void {
-        echo $this->renderView('form', [
-            'title' => 'New Task' 
-        ]);
+    public function 
+    handle(ServerRequestInterface $request): ResponseInterface
+    {
+        $this->loadView('form', ['title' => 'New Task']);
+        return new Response(200, [], $this->renderView());
     }
 }

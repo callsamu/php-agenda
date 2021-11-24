@@ -2,35 +2,43 @@
 
 namespace Samu\TodoList\Controllers;
 
+use Nyholm\Psr7\Response;
+use Pimple\Container;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Samu\TodoList\Entity\Task;
-use Samu\TodoList\Helper\EntityManagerCreator;
 
 class TaskDestroyer
-implements ControllerInterface
+implements RequestHandlerInterface
 {
     private $entityManager;
 
-    public function __construct() {
-       $this->entityManager = EntityManagerCreator::create(); 
+    public function __construct(Container $c) {
+       $this->entityManager = $c['entity-manager'];
     }
 
-    public function processRequest(string $uri): void
+    /**
+     * {@inheritDoc}
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = filter_input(
-            INPUT_GET,
-            'id',
+        $header = [];
+        $header['Location'] = '/tasks';
+        
+        $id = filter_var(
+            $request->getQueryParams()['id'],
             FILTER_VALIDATE_INT
         );
 
         if ($id === null || $id === false) {
-            header('Location: /tasks');
-            return;
+            return new Response(200, $header);
         }
 
         $task = $this->entityManager->getReference(Task::class, $id);
         $this->entityManager->remove($task);
         $this->entityManager->flush();
 
-        header('Location: /tasks');
+        return new Response(200, $header);
     }
 }

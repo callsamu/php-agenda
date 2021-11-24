@@ -2,28 +2,33 @@
 
 namespace Samu\TodoList\Controllers;
 
-use Samu\TodoList\Helper\EntityManagerCreator;
+use Nyholm\Psr7\Response;
+use Pimple\Container;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Samu\TodoList\Entity\Task;
 
 class TaskList 
 extends ViewController
-implements ControllerInterface
+implements RequestHandlerInterface
 {
-    private $repository;
+    private $entityManager;
 
-    public function __construct() {
-        $this->repository = 
-            EntityManagerCreator::create()
-                ->getRepository(Task::class);
+    public function __construct(Container $container) {
+        $this->entityManager = $container['entity-manager'];
     }
 
-    public function processRequest(string $uri) : void {
-        $taskList = $this->repository
-                         ->findAll();
-        
-        echo $this->renderView('tasklist', [
+    public function handle(ServerRequestInterface $request): ResponseInterface {
+        $taskList = $this->entityManager
+                        ->getRepository(Task::class)
+                        ->findAll();
+                        
+        $html = $this->loadView('tasklist', [
             'title' => 'My Tasks',
             'taskList' => $taskList
-        ]);
+        ])->renderView();
+
+        return new Response(200, [], $html);
     }
 }

@@ -2,15 +2,16 @@
 
 namespace Samu\TodoList\Controllers;
 
-use DateTime;
 use Nyholm\Psr7\Response;
 use Pimple\Container;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Samu\TodoList\Entity\Task;
+use Samu\TodoList\Helper\EntityManagerCreator;
 
-class Persistance
+class TaskEditor
+extends ViewController
 implements RequestHandlerInterface
 {
     private $entityManager;
@@ -19,32 +20,25 @@ implements RequestHandlerInterface
     {
         $this->entityManager = $c['entity-manager'];
     }
-
+    
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $name = filter_var(
-            $request->getParsedBody()['description'],
-            FILTER_SANITIZE_STRING
-        );
-            
         $id = filter_var(
             $request->getQueryParams()['id'],
             FILTER_VALIDATE_INT
         );
-
-        $task = new Task();
-        $task->setName($name)
-             ->setDate(new DateTime('now'));
-        
-        if ($id !== null && $id !== false) {
-            $task->setId($id);
-            $this->entityManager->merge($task);
-        } else {
-            $this->entityManager->persist($task);
+            
+        if ($id === null || $id === false) {
+            return new Response(200, ['Location' => '/tasks']);
         }
-        
-        $this->entityManager->flush();
 
-        return new Response(200, ['Location' => '/tasks']);
+        $task = $this->entityManager->find(Task::class, $id);
+        
+        $this->loadView('form', [
+            'title' => 'Edit Task',
+            'task' => $task
+        ]);
+        
+        return new Response(200, [], $this->renderView());
     }
 }
