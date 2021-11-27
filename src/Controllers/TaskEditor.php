@@ -2,24 +2,20 @@
 
 namespace Samu\TodoList\Controllers;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
-use Pimple\Container;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Samu\TodoList\Entity\Task;
-use Samu\TodoList\Helper\EntityManagerCreator;
 
 class TaskEditor
 extends ViewController
 implements RequestHandlerInterface
 {
-    private $entityManager;
-
-    public function __construct(Container $c) 
-    {
-        $this->entityManager = $c['entity-manager'];
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    ) {}
     
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
