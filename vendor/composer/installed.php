@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '80584843d588a7541f9b5d133dba1d282c01572a',
+    'reference' => '17c22b13394cd0657029b53033e4c4fa42fdc626',
     'name' => 'samu/todo-list',
   ),
   'versions' => 
@@ -153,6 +153,42 @@
         0 => '1.11.99',
       ),
     ),
+    'opis/closure' => 
+    array (
+      'pretty_version' => '3.6.2',
+      'version' => '3.6.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '06e2ebd25f2869e54a306dda991f7db58066f7f6',
+    ),
+    'php-di/invoker' => 
+    array (
+      'pretty_version' => '2.3.2',
+      'version' => '2.3.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5214cbe5aad066022cd845dbf313f0e47aed928f',
+    ),
+    'php-di/php-di' => 
+    array (
+      'pretty_version' => '6.3.5',
+      'version' => '6.3.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b8126d066ce144765300ee0ab040c1ed6c9ef588',
+    ),
+    'php-di/phpdoc-reader' => 
+    array (
+      'pretty_version' => '2.2.1',
+      'version' => '2.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '66daff34cbd2627740ffec9469ffbac9f8c8185c',
+    ),
     'php-http/message-factory' => 
     array (
       'pretty_version' => 'v1.0.2',
@@ -161,15 +197,6 @@
       array (
       ),
       'reference' => 'a478cb11f66a6ac48d8954216cfed9aa06a501a1',
-    ),
-    'pimple/pimple' => 
-    array (
-      'pretty_version' => 'v3.5.0',
-      'version' => '3.5.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a94b3a4db7fb774b3d78dad2315ddc07629e1bed',
     ),
     'psr/cache' => 
     array (
@@ -195,6 +222,13 @@
       array (
       ),
       'reference' => '513e0666f7216c7459170d56df27dfcefe1689ea',
+    ),
+    'psr/container-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '^1.0',
+      ),
     ),
     'psr/http-factory' => 
     array (
@@ -267,7 +301,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '80584843d588a7541f9b5d133dba1d282c01572a',
+      'reference' => '17c22b13394cd0657029b53033e4c4fa42fdc626',
     ),
     'symfony/cache' => 
     array (
