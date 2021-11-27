@@ -23,33 +23,52 @@ class Task
     /**
      * @ORM\Column(type="datetime")
      */
-    private DateTime $creationDate;
+    private DateTime $schedule;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private DateTime $deadline;
 
-    public function getId() : int {
-       return $this->id; 
+    public function __construct(
+        string $name,
+        DateTime $schedule,
+        DateTime $deadline
+    ) {
+        $this->name = $name;
+
+        if (($schedule <=> $deadline) > 0)
+            throw new \DomainException(
+                "Schedule cannot be more recent than Deadline."
+            );
+            
+        $this->schedule = $schedule;
+        $this->deadline = $deadline;
     }
 
     public function setId(int $new) {
+        if ($new < 0) 
+            throw new \DomainException("Id can't be negative integer.");
+        if ($this->id ?? false) 
+            throw new \DomainException("Id is already set.");
+
         $this->id = $new;
         return $this;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 
     public function getName() : string { 
         return $this->name;
     }
 
-    public function setName(string $new) { 
-        $this->name = $new;
-        return $this;
+    public function getSchedule() : DateTime {
+        return $this->schedule;
     }
 
-    public function getDate() : DateTime {
-        return $this->creationDate;
-    }
-
-    public function setDate(DateTime $new)  {
-        $this->creationDate = $new;
-        return $this;
+    public function getDeadline() : DateTime {
+        return $this->deadline;
     }
 }
 
