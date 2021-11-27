@@ -1,19 +1,25 @@
 <?php $this->loadView('head', ['title' => $title]); ?>
 
-<h1> <?= $title; ?> </h1>
+<?php 
+      $task ??= null;
+      $id = $task?->getId(); 
+      $name = $task?->getName();
+      $schedule = $task?->getSchedule()->format('Y-d-m');
+?>
 
-    <?php 
-        if (isSet($task)) {
-            $id = $task->getId();
-            $name = $task->getName();
-          } else {
-            $id = '';
-            $name = '';
-          }
-    ?>
-             
-    <form action="/save?id=<?= $id ?>" method="post">
-        <input type="text" name="description" value="<?= $name ?>">
+<h1> <?= $title; ?> </h1>
+    <form action="/save?id=<?= $id; ?>" method="post">
+        <label for="name"> 
+            Name 
+            <input type="text" name="description" value="<?= $name; ?>">
+        </label>
+        <label for="date">Scheduled</label>
+        <input type="date" 
+               name="schedule" 
+               value="<?=$schedule;?>">
+        <label for="date">Deadline</label>
+        <input type="date" name="deadline" value="">
+
         <input type="submit" value="Submit">
 </form>
 
