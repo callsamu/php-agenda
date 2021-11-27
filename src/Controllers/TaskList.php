@@ -15,17 +15,41 @@ implements RequestHandlerInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager
-    )  {}
+    ) {}
+
+    private function buildList($tasks): array
+    {
+        $list = [];
+        $day = 0;
+        $currentDay = \DateTime::createFromFormat('d-m-Y', 'now');
+
+        foreach ($tasks as $task) {
+            $schedule = $task->getSchedule();
+
+            if ($currentDay < $schedule) {
+                $day += 1;
+                $currentDay = $schedule;
+            }
+
+            $list[$day][] = $task;
+        }
+
+        return $list;
+    }
 
     public function handle(ServerRequestInterface $request): ResponseInterface {
-        $taskList = $this
+        $results = $this
             ->entityManager
-            ->getRepository(Task::class)
-            ->findAll();
+            ->createQuery('
+                SELECT t
+                FROM Samu\TodoList\Entity\Task t
+                WHERE t.schedule > CURRENT_DATE()
+                ORDER BY t.schedule
+            ')->toIterable();
 
         $html = $this->loadView('tasklist', [
             'title' => 'My Tasks',
-            'taskList' => $taskList
+            'taskList' => $this->buildList($results)
         ])->renderView();
 
         return new Response(200, [], $html);
