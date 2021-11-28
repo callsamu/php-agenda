@@ -6,7 +6,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Samu\TodoList\Repository\TaskRepository")
  */
 class Task
 {
@@ -34,27 +34,32 @@ class Task
         DateTime $schedule,
         DateTime $deadline
     ) {
+        $this->updateName($name);
+        $this->updateDates($schedule, $deadline);
+    }
+
+    public function updateName(string $name) 
+    {
+        $length = strlen($name);
+
+        if ($length === 0 || $length >= 30)
+            throw new \LengthException("Invalid name: maximum of 30 characters");
+    
         $this->name = $name;
-
-        if (($schedule <=> $deadline) > 0)
-            throw new \DomainException(
-                "Schedule cannot be more recent than Deadline."
-            );
-            
-        $this->schedule = $schedule;
-        $this->deadline = $deadline;
     }
 
-    public function setId(int $new) {
-        if ($new < 0) 
-            throw new \DomainException("Id can't be negative integer.");
-        if ($this->id ?? false) 
-            throw new \DomainException("Id is already set.");
+    public function updateDates(DateTime $schedule, DateTime $deadline)
+    {
+        $message = "Schedule cannot be more recent than Deadline.";
 
-        $this->id = $new;
-        return $this;
+        if ($schedule < $deadline)
+            throw new \DomainException($message);
+        
+        // Reset time
+        $this->schedule = $schedule->setTime(0, 0);
+        $this->deadline = $deadline->setTime(0, 0);
     }
-
+    
     public function getId() {
         return $this->id;
     }
