@@ -2,6 +2,7 @@
 
 namespace Samu\TodoList\Controllers;
 
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -13,15 +14,19 @@ class TaskList
 extends ViewController
 implements RequestHandlerInterface
 {
+    private DateTime $today;
+
     public function __construct(
         private EntityManagerInterface $entityManager
-    ) {}
+    ) {
+        $this->today = new DateTime('today'); 
+    }
 
     private function buildList($tasks): array
     {
         $list = [];
         $day = 0;
-        $currentDay = \DateTime::createFromFormat('d-m-Y', 'now');
+        $currentDay = $this->today;
 
         foreach ($tasks as $task) {
             $schedule = $task->getSchedule();
@@ -38,18 +43,12 @@ implements RequestHandlerInterface
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface {
-        $results = $this
-            ->entityManager
-            ->createQuery('
-                SELECT t
-                FROM Samu\TodoList\Entity\Task t
-                WHERE t.schedule > CURRENT_DATE()
-                ORDER BY t.schedule
-            ')->toIterable();
+        $repo = $this->entityManager->getRepository(Task::class);
+        $list = $this->buildList($repo->getTasksStartingBy($this->today));
 
         $html = $this->loadView('tasklist', [
             'title' => 'My Tasks',
-            'taskList' => $this->buildList($results)
+            'taskList' => $list
         ])->renderView();
 
         return new Response(200, [], $html);
