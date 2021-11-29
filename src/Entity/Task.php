@@ -52,7 +52,7 @@ class Task
     {
         $message = "Schedule cannot be more recent than Deadline.";
 
-        if ($schedule < $deadline)
+        if ($schedule > $deadline)
             throw new \DomainException($message);
         
         // Reset time
