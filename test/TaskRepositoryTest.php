@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Samu\TodoList\Entity\Task;
-use Samu\TodoList\Helper\EntityManagerCreator;
-use Samu\TodoList\Repository\TaskRepository;
+use Samu\PHPAgenda\Entity\Task;
+use Samu\PHPAgenda\Helper\EntityManagerCreator;
+use Samu\PHPAgenda\Repository\TaskRepository;
 
 class TaskRepositoryTest
 extends TestCase

@@ -3,8 +3,8 @@
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use Samu\TodoList\Controllers\TaskList;
-use Samu\TodoList\Repository\TaskRepository;
+use Samu\PHPAgenda\Controllers\TaskList;
+use Samu\PHPAgenda\Repository\TaskRepository;
 
 class ListControllerTest
 extends TestCase

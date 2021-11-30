@@ -3,8 +3,8 @@
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use Samu\TodoList\Controllers\Persistance;
-use Samu\TodoList\Entity\Task;
+use Samu\PHPAgenda\Controllers\Persistance;
+use Samu\PHPAgenda\Entity\Task;
 
 class TaskPersistenceTest
 extends TestCase
