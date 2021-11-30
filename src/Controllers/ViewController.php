@@ -18,7 +18,7 @@ class ViewController
 
     public function loadView(string $path, array $variables)
     {
-        $this->view = $this->viewsDir . $path . '.html';
+        $this->view = $this->viewsDir . $path . '.php';
         $this->variables = $variables;
 
         return $this;
