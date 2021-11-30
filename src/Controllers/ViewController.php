@@ -2,6 +2,7 @@
 
 namespace Samu\TodoList\Controllers;
 
+abstract
 class ViewController
 {
     private array $variables;
