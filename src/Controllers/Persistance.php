@@ -24,7 +24,6 @@ implements RequestHandlerInterface
         // TODO: Implement flash message
 
         return '/new-task';
-        echo "hahaha";
     }
     
     public function create()
@@ -40,8 +39,6 @@ implements RequestHandlerInterface
         $this->entityManager->persist($task);
         $this->entityManager->flush();
 
-        echo "hahaha";
-        
         return '/tasks';
     }
 
@@ -66,15 +63,17 @@ implements RequestHandlerInterface
             FILTER_SANITIZE_STRING
         );
         
-        $id = filter_var(
-            $request->getQueryParams()['id'],
-            FILTER_VALIDATE_INT
-        );
+        $queryParams = $request->getQueryParams();
+        $id = $queryParams['id'] ?? null;
+        
+        if ($id !== null) {
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+        }
 
         $redirect = match($id) {
-            true => $this->update($id),
-            false => $this->create(),
-            null => $this->error()
+            null => $this->create(),
+            false => $this->error(),
+            default => $this->update($id)
         };
         
         return new Response(200, ['Location' => $redirect]);
