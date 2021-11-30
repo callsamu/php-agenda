@@ -16,7 +16,7 @@ extends EntityRepository
     {
         $dql = <<<QUERY
             SELECT t
-            FROM Samu\TodoList\Entity\Task t
+            FROM Samu\PHPAgenda\Entity\Task t
             WHERE t.schedule >= ?1 
             ORDER BY t.schedule
         QUERY;
