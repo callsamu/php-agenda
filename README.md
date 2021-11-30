@@ -3,9 +3,11 @@ A simple (and incomplete) web app for keeping track of your day-to-day tasks
 and deadlines. Done without any frameworks.
 
 ## Installation and Setup
-For this to work, you only need PHP 8.0 and Composer installed.
 
 ### Using PHP's built-in server
+
+For this to work, you only need PHP 8.0 and Composer installed.
+
 ```git clone "https://github.com/callsamu/php-agenda"```
 
 ```composer install```
