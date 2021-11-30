@@ -13,8 +13,6 @@ use Samu\PHPAgenda\Entity\Task;
 class Persistance
 implements RequestHandlerInterface
 {
-    private array $postParameters;
-
     public function __construct(
         private EntityManagerInterface $entityManager
     ) {}
@@ -26,15 +24,15 @@ implements RequestHandlerInterface
         return '/new-task';
     }
     
-    public function create()
+    public function create(array $parameters)
     {
-        extract($this->postParameters);
+        [
+         'description' => $n, 
+         'schedule' => $s, 
+         'deadline' => $d
+        ] = $parameters;
 
-        $task = new Task(
-            $description,
-            new DateTime($schedule), 
-            new DateTime($deadline)
-        );
+        $task = new Task($n, new DateTime($s), new DateTime($d));
 
         $this->entityManager->persist($task);
         $this->entityManager->flush();
@@ -42,14 +40,18 @@ implements RequestHandlerInterface
         return '/tasks';
     }
 
-    public function update (int $id): string
+    public function update (int $id, array $parameters): string
     {
-        extract($this->postParameters);
+        [
+         'description' => $n, 
+         'schedule' => $s, 
+         'deadline' => $d
+        ] = $parameters;
 
         $task = $this->entityManager->find(Task::class, $id);
         
-        $task->updateName($description);
-        $task->updateDates(new DateTime($schedule), new DateTime($deadline));
+        $task->updateName($n);
+        $task->updateDates(new DateTime($s), new DateTime($d));
 
         $this->entityManager->flush();
         
@@ -58,22 +60,27 @@ implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->postParameters = filter_var_array(
+        $postParameters = filter_var_array(
             $request->getParsedBody(),
             FILTER_SANITIZE_STRING
         );
         
+        if (array_search(false, $postParameters)) {
+            // TODO: Implement flash message.
+            return new Response(200, ['Location' => '/new-task']);
+        }
+        
         $queryParams = $request->getQueryParams();
         $id = $queryParams['id'] ?? null;
-        
+
         if ($id !== null) {
             $id = filter_var($id, FILTER_VALIDATE_INT);
         }
 
         $redirect = match($id) {
-            null => $this->create(),
             false => $this->error(),
-            default => $this->update($id)
+            null => $this->create($postParameters),
+            default => $this->update($id, $postParameters)
         };
         
         return new Response(200, ['Location' => $redirect]);
