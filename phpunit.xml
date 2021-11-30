@@ -5,8 +5,8 @@
     bootstrap="vendor/autoload.php"
     cacheResult="false">
     <testsuites>
-        <testsuite name="Testing">
-            <directory>test</directory>
+        <testsuite name="Controller Testing">
+            <directory>test/controller</directory>
         </testsuite>
     </testsuites>
 </phpunit>
