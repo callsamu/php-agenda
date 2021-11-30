@@ -1,6 +1,6 @@
 <?php
 
-namespace Samu\TodoList\Helper;
+namespace Samu\PHPAgenda\Helper;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;

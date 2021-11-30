@@ -1,6 +1,6 @@
 {
-    "name": "samu/todo-list",
-    "description": "Simple TODO list web app, implementing a rudimentary MVC.",
+    "name": "samu/php-agenda",
+    "description": "Simple agenda web-app, implementing a rudimentary MVC.",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Samu\\TodoList\\":"src/"
+            "Samu\\PHPAgenda\\":"src/"
         }
     },
     "require-dev": {

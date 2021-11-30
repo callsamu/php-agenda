@@ -1,6 +1,6 @@
 <?php
 
-namespace Samu\TodoList\Entity;
+namespace Samu\PHPAgenda\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;

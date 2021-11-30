@@ -1,6 +1,6 @@
 <?php
 
-namespace Samu\TodoList\Controllers;
+namespace Samu\PHPAgenda\Controllers;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

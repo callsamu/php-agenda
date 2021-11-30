@@ -1,6 +1,6 @@
 <?php
 
-namespace Samu\TodoList\Repository;
+namespace Samu\PHPAgenda\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use \DateTime;

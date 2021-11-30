@@ -1,6 +1,6 @@
 <?php
 
-namespace Samu\TodoList\Controllers;
+namespace Samu\PHPAgenda\Controllers;
 
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -8,7 +8,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Samu\TodoList\Entity\Task;
+use Samu\PHPAgenda\Entity\Task;
 
 class TaskList 
 extends ViewController

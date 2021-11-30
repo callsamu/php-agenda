@@ -1,6 +1,6 @@
 <?php
 
-namespace Samu\TodoList\Controllers;
+namespace Samu\PHPAgenda\Controllers;
 
 abstract
 class ViewController
