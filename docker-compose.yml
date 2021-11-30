@@ -13,3 +13,4 @@ services:
       dockerfile: ./docker/PHP.Dockerfile
     volumes:
       - .:/app
+      - /tmp/php-agenda-data:/app/var/data/
