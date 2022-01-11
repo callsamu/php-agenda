@@ -1,0 +1,7 @@
+*~
+docker
+.git
+.vendor
+composer.lock
+docker-compose.yml
+var/data/database.sqlite
